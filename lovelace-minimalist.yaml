@@ -1,0 +1,919 @@
+button_card_templates: !include_dir_merge_named minimalist-templates/
+
+kiosk_mode:
+  non_admin_settings:
+    hide_header: true
+    hide_sidebar: true
+  mobile_settings:
+    hide_header: true
+    ignore_entity_settings: true
+    custom_width: 768
+
+
+
+
+views:
+
+#################
+#               #
+#     HOME      #
+#               #
+#################
+
+  - title: Home
+    path: home
+    cards:
+
+      - type: vertical-stack
+        cards:
+
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: edge
+              - type: custom:button-card
+                template: big_title
+                name: >
+                  [[[
+                    let time = states['sensor.time'].state;
+                    let welcome = '';
+
+                    if (time > '18:00'){
+                      welcome = 'Goedenavond'; 
+                    } else if (time > '12:00'){
+                      welcome = 'Goedemiddag';
+                    } else if (time > '05:00'){
+                      welcome = 'Goedemorgen';
+                    } else {
+                      welcome = 'Hallo';
+                    }
+
+                    return welcome + ',<br>' + user.name + '!';
+                  ]]]
+              - type: custom:button-card
+                template: edge
+
+          - type: custom:button-card
+            template: header_spacing
+            name: ''
+
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: edge
+              - type: custom:button-card
+                template: title
+                name: menu
+              - type: custom:button-card
+                template: edge
+
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: edge
+              - type: custom:button-card
+                template: card_navigate
+                variables:
+                  ulm_card_navigate_path: /lovelace-minimalist/lampen
+                  ulm_card_navigate_title: Lampen
+                  ulm_card_navigate_icon: mdi:lightbulb-group
+              - type: custom:button-card
+                template: card_navigate
+                variables:
+                  ulm_card_navigate_path: /lovelace-minimalist/media
+                  ulm_card_navigate_title: Media
+                  ulm_card_navigate_icon: mdi:music
+              - type: custom:button-card
+                template: edge
+            
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: edge
+              - type: custom:button-card
+                template: card_navigate
+                variables:
+                  ulm_card_navigate_path: /lovelace-minimalist/klimaat
+                  ulm_card_navigate_title: Klimaat
+                  ulm_card_navigate_icon: mdi:thermometer 
+              - type: custom:button-card
+                template: card_navigate
+                variables:
+                  ulm_card_navigate_path: /lovelace-minimalist/stats
+                  ulm_card_navigate_title: Statistieken
+                  ulm_card_navigate_icon: mdi:chart-line
+              - type: custom:button-card
+                template: edge
+
+
+
+
+
+
+
+
+###################
+#                 #
+#     LAMPEN      #
+#                 #
+###################
+
+
+  - title: Lampen
+    path: lampen
+    cards:
+      - type: custom:button-card
+        template: chip_back
+        tap_action: 
+          action: navigate
+          navigation_path: /lovelace-minimalist/Home
+
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: edge
+              - type: custom:button-card
+                template: big_title
+                name: Lampen 💡
+                label: >
+                  [[[ return states['sensor.current_lights_on'].state + ' aan'; ]]]
+              - type: custom:button-card
+                template: edge
+
+          - type: custom:button-card
+            template: header_spacing
+            name: ''
+
+          - type: vertical-stack
+            cards:
+              - type: horizontal-stack
+                cards:
+                  - type: custom:button-card
+                    template: edge
+                  - type: custom:button-card
+                    template: sub_title
+                    name: Michiel
+                    label: Slaapkamer
+                  - type: custom:button-card
+                    template: edge
+              - type: horizontal-stack
+                cards:
+                  - type: custom:button-card
+                    template: edge
+                  - type: custom:button-card
+                    template:
+                      - card_light_slider_collapse_with_button
+                    entity: light.lamp_michiel
+                    variables:
+                      ulm_card_light_name: Michiel
+                      ulm_card_light_icon: hue:bulb-sultan
+                      ulm_card_light_slider_collapse_navigation_path: "/lovelace-minimalist/popup_kamer_michiel_lamp"
+                    hold_action:
+                      !include popup/light-michiel.yaml
+
+                  - type: custom:button-card
+                    template: card_light
+                    entity: switch.bedroom_light
+                    variables:
+                      ulm_card_light_name: Nachtlamp Michiel
+                  - type: custom:button-card
+                    template: edge
+
+          - type: custom:button-card
+            template: title
+
+
+          - type: vertical-stack
+            cards:
+              - type: horizontal-stack
+                cards:
+                  - type: custom:button-card
+                    template: edge
+                  - type: custom:button-card
+                    template: sub_title
+                    name: Woonkamer
+                  - type: custom:button-card
+                    template: edge
+
+              - type: horizontal-stack
+                cards:
+                  - type: custom:button-card
+                    template: edge
+                  - type: custom:button-card
+                    entity: light.woonkamer
+                    template: card_light_slider_collapse_with_button
+                    variables:
+                      ulm_card_light_name: Woonkamer
+                      ulm_card_light_icon: hue:bulb-group-spot
+                      ulm_card_light_slider_collapse_navigation_path: "/lovelace-minimalist/popup_woonkamer_lampen"
+                    hold_action:
+                      !include popup/light-woonkamer.yaml
+                  - type: custom:button-card
+                    template: edge
+
+          - type: horizontal-stack
+            cards:
+              !include card_template_self/hue_scene_swipe.yaml
+          
+          - type: custom:button-card
+            template: title
+            name: ''
+
+          - type: vertical-stack
+            cards:
+              - type: horizontal-stack
+                cards: 
+                  - type: custom:button-card
+                    template: edge
+                  - type: custom:button-card
+                    template: sub_title
+                    name: Garage
+                    label: Boven
+                  - type: custom:button-card
+                    template: edge
+              - type: horizontal-stack
+                cards: 
+                  - type: custom:button-card
+                    template: edge
+                  - type: custom:button-card
+                    template: 
+                      - card_light_slider_collapse_with_button
+                    entity: light.garage_boven
+                    variables:
+                      ulm_card_light_name: Garage Boven
+                      ulm_card_light_icon: hue:bulb-spot
+                      ulm_card_light_slider_collapse_navigation_path: "/lovelace-minimalist/popup_garage_boven_spots"
+                    name: Garage
+
+                  - type: custom:button-card
+                    template: card_light_slider_collapse_with_button
+                    entity: light.garage_boven_michel
+                    variables:
+                      ulm_card_light_slider_collapse_with_button_name: Bureau Michel
+                      ulm_card_light_icon: hue:bulb-spot
+                      ulm_card_light_slider_collapse_navigation_path: "/lovelace-minimalist/popup_garage_boven_michel"
+                    name: Bureau Michel
+                  - type: custom:button-card
+                    template: edge
+
+              - type: custom:button-card
+                template: card_spacing
+
+
+
+
+##################
+#                #
+#     MEDIA      #
+#                #
+##################
+
+  - title: Media
+    path: media
+    cards:
+      - type: custom:button-card
+        template: chip_back
+        tap_action: 
+          action: navigate
+          navigation_path: /lovelace-minimalist/Home
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: edge
+              - type: custom:button-card
+                template: big_title
+                name: Media 🎶
+              - type: custom:button-card
+                template: edge
+
+          - type: custom:button-card
+            template: header_spacing
+            name: ''
+
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: edge
+              - type: custom:button-card
+                template: sub_title
+                name: Sonos
+                label: Woonkamer
+              - type: custom:button-card
+                template: edge
+
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: edge
+              - type: custom:button-card
+                template: card_media_player_with_four_controls
+                show_icon: false
+                variables:
+                  ulm_card_media_player_with_four_controls_entity: media_player.woonkamer
+                  ulm_card_media_player_with_four_controls_name: "Woonkamer" 
+                  ulm_card_media_player_with_four_controls_icon: "mdi:television" 
+                  ulm_card_media_player_with_four_controls_service: "media_player.select_source"
+                  ulm_card_media_player_with_four_controls_source: "Audio Component: TV CON" 
+              - type: custom:button-card
+                template: edge
+
+          - type: horizontal-stack
+            cards:
+              !include card_template_self/sonos_zender_swipe.yaml
+          
+          - type: custom:button-card
+            template: card_spacing
+
+          - type: custom:button-card
+            template: sub_title
+            name: Chromecast
+            label: TV
+
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: edge
+              - type: custom:button-card
+                template: card_media_player_with_four_controls
+                show_icon: false
+                variables:
+                  ulm_card_media_player_with_four_controls_entity: media_player.chromecast4257
+                  ulm_card_media_player_with_four_controls_name: "Chromecast"  
+                  ulm_card_media_player_with_four_controls_icon: "mdi:power" 
+                  ulm_card_media_player_with_four_controls_service: "media_player.turn_off"
+              - type: custom:button-card
+                template: edge  
+
+          - type: custom:button-card
+            template: card_spacing
+
+          - type: custom:button-card
+            template: sub_title
+            name: Google Home Mini
+            label: Michiel
+
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: edge
+              - type: custom:button-card
+                template: card_media_player_with_four_controls
+                show_icon: false
+                variables:
+                  ulm_card_media_player_with_four_controls_entity: media_player.garage_speaker
+                  ulm_card_media_player_with_four_controls_name: "Speaker Michiel"  
+                  ulm_card_media_player_with_four_controls_icon: "mdi:power" 
+                  ulm_card_media_player_with_four_controls_service: "media_player.turn_off"
+              - type: custom:button-card
+                template: edge  
+
+          - type: custom:button-card
+            template: card_spacing
+                
+
+
+####################
+#                  #
+#     KLIMAAT      #
+#                  #
+####################
+
+  - title: Klimaat
+    path: klimaat
+
+    cards:
+      - type: custom:button-card
+        template: chip_back
+        tap_action: 
+          action: navigate
+          navigation_path: /lovelace-minimalist/Home
+
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: edge
+              - type: custom:button-card
+                template: big_title
+                name: Klimaat 🌡️
+                label: >
+                  [[[ return 'buiten is het ' + (states['sensor.your_weatherstation'].attributes.temp) + ' °C' + ' en ' + states['sensor.openweathermap_weather'].state + '<br>' + 'de luchtdruk is ' + (states['sensor.your_weatherstation'].attributes.luchtd) + ' hPa'; ]]]
+              - type: custom:button-card
+                template: edge
+
+          - type: custom:button-card
+            template: header_spacing
+            name: ''
+
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: edge
+              - type: custom:button-card
+                template: sub_title
+                name: Garage
+                label: Boven
+              - type: custom:button-card
+                template: edge
+
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: edge
+              - type: 'custom:button-card'
+                template: card_graph
+                variables:
+                  ulm_card_graph_color: "var(--google-blue)"
+                  ulm_card_graph_name: Temperatuur Garage
+                  ulm_card_graph_entity: sensor.garage_temperatuur
+              - type: 'custom:button-card'
+                template: card_graph
+                variables:
+                  ulm_card_graph_color: "var(--google-blue)"
+                  ulm_card_graph_name: Vochtigheid Garage
+                  ulm_card_graph_entity: sensor.garage_vochtigheid
+              - type: custom:button-card
+                template: edge
+
+          - type: horizontal-stack
+            cards:
+              - type: 'custom:button-card'
+                template: edge
+              - type: 'custom:button-card'
+                template: custom_card_mpse_thermostat
+                entity: climate.garage_boven_thermostaat
+              - type: 'custom:button-card'
+                template: edge
+          
+          - type: custom:button-card
+            template: card_spacing 
+
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: edge
+              - type: custom:button-card
+                template: sub_title
+                name: Michiel
+                label: Slaapkamer
+              - type: custom:button-card
+                template: edge
+
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: edge
+              - type: 'custom:button-card'
+                template: card_graph
+                variables:
+                  ulm_card_graph_color: "var(--google-green)"
+                  ulm_card_graph_name: Temperatuur Michiel
+                  ulm_card_graph_entity: sensor.michiel_temperatuur
+              - type: 'custom:button-card'
+                template: card_graph
+                variables:
+                  ulm_card_graph_color: "var(--google-green)"
+                  ulm_card_graph_name: Vochtigheid Michiel
+                  ulm_card_graph_entity: sensor.michiel_vochtigheid
+              - type: custom:button-card
+                template: edge
+
+          - type: custom:button-card
+            template: card_spacing   
+
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: edge
+              - type: custom:button-card
+                template: sub_title
+                name: Weer
+                label: buiten
+              - type: custom:button-card
+                template: edge
+
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: edge
+              - type: custom:button-card
+                template: card_generic
+                entity: sensor.temperatuur_buiten
+              - type: custom:button-card
+                template: card_generic
+                entity: sensor.gevoelstemperatuur_buiten
+              - type: custom:button-card
+                template: edge
+
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: edge
+              - type: custom:button-card
+                template: card_generic
+                entity: sensor.dauwpunt
+              - type: custom:button-card
+                template: card_generic
+                entity: sensor.luchtvochtigheid_buiten
+                icon: mdi:water-percent
+              - type: custom:button-card
+                template: edge
+
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: edge
+              - type: custom:button-card
+                template: card_generic
+                entity: sensor.windkmh
+                icon: mdi:speedometer
+              - type: custom:button-card
+                template: card_generic
+                entity: sensor.windrichting
+                icon: mdi:windsock
+              - type: custom:button-card
+                template: edge
+
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: edge
+              - type: custom:button-card
+                template: card_generic
+                entity: sensor.luchtdruk
+                icon: mdi:gauge
+              - type: custom:button-card
+                template: edge
+
+
+                
+
+            
+            
+            
+#########################
+#                       #
+#     STATISTIEKEN      #
+#                       #
+#########################
+
+
+  - title: Statistieken
+    path: stats
+    cards:
+      - type: custom:button-card
+        template: chip_back
+        tap_action: 
+          action: navigate
+          navigation_path: /lovelace-minimalist/Home
+
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: edge
+              - type: custom:button-card
+                template: big_title
+                name: Statistieken 📈
+                label: >
+                  [[[ return states['input_select.stats_menu'].state; ]]]
+              - type: custom:button-card
+                template: edge
+
+          - type: custom:button-card
+            template: header_spacing
+            name: ''
+
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: edge
+              - type: custom:button-card
+                template: list_four_items
+                custom_fields:
+                  item1:
+                    card:
+                      type: "custom:button-card"
+                      template: "widget_icon_menu"
+                      icon: mdi:nas
+                      tap_action:
+                        action: call-service
+                        service: input_select.select_option
+                        service_data:
+                          entity_id: input_select.stats_menu
+                          option: NAS
+                  item2:
+                    card:
+                      type: "custom:button-card"
+                      template: "widget_icon_menu"
+                      icon: mdi:raspberry-pi
+                      tap_action:
+                        action: call-service
+                        service: input_select.select_option
+                        service_data:
+                          entity_id: input_select.stats_menu
+                          option: Raspberry Pi
+                  item3:
+                    card:
+                      type: "custom:button-card"
+                      template: "widget_icon_menu"
+                      icon: mdi:printer
+                      tap_action:
+                        action: call-service
+                        service: input_select.select_option
+                        service_data:
+                          entity_id: input_select.stats_menu
+                          option: Printer
+                  item4:
+                    card:
+                      type: "custom:button-card"
+                      template: "widget_icon_menu"
+                      icon: mdi:cloud
+                      tap_action:
+                        action: call-service
+                        service: input_select.select_option
+                        service_data:
+                          entity_id: input_select.stats_menu
+                          option: Weer
+              - type: custom:button-card
+                template: edge
+
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: edge
+              - type: custom:state-switch
+                entity: input_select.stats_menu
+                states:
+                  NAS:
+                    !include lovelace_page/stats/nas.yaml
+                  Raspberry Pi:
+                    !include lovelace_page/stats/rpi.yaml
+                  Printer:
+                    !include lovelace_page/stats/printer.yaml
+                  Weer:
+                    !include lovelace_page/stats/weer.yaml
+              - type: custom:button-card
+                template: edge
+
+
+
+
+
+###################################
+#                                 #
+#         POPUP  MICHIEL          #
+#                                 #
+###################################
+
+  - title: Popup Kamer Michiel
+    path: popup_kamer_michiel_lamp
+    cards:
+      - type: custom:button-card
+        template: chip_back
+        tap_action: 
+          action: navigate
+          navigation_path: /lovelace-minimalist/lampen
+
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: edge
+              - type: custom:button-card
+                template: big_title
+                name: Slaapkamer
+              - type: custom:button-card
+                template: edge
+
+          - type: custom:button-card
+            template: card_spacing
+
+          - type: horizontal-stack
+            cards:
+              - type: custom:my-slider
+                entity: light.lamp_michiel
+                radius: "20px"
+                rotate: 270
+                containerHeight: "320px"
+                width: "250px"
+                height: "100px"
+                top: "100px"
+                left: "17%"
+                mainSliderColor: white
+                mainSliderColorOff: white
+                secondarySliderColor: "var(--color-theme)"
+                secondarySliderColorOff: "var(--color-theme)"
+                thumbWidth: '40px'
+                thumbHeight: '250px'
+                thumbColor: white
+                thumbHorizontalPadding: '4px'
+                thumbVerticalPadding: '0px'
+                thumbTop: '0px'
+                thumbBorderRight: '0px'
+                thumbBorderLeft: '0px'
+                thumbBorderTop: '0px'
+                thumbBorderBotton: '0px'
+                card_mod:
+                  style: |
+                    ha-card {
+                      background: none !important;
+                      box-shadow: none !important;
+                    }
+                    .slider-container input[type="range"] {
+                      position: revert !important;
+                      border: 1px solid rgba(var(--color-theme),0.3) !important;
+                    }
+                    .slider-container {
+                      display: flex;
+                      justify-content: center;
+                      align-items: center;
+                    }
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: edge
+              - type: custom:button-card
+                template: sub_title
+                label: scenes
+              - type: custom:button-card
+                template: edge
+
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: vertical_buttons_custom
+                name: Ontspannen
+                tap_action:
+                  action: call-service
+                  service: select.select_option
+                  service_data:
+                    option: WWnew
+                    entity_id: select.lamp_michiel_preset
+                entity_picture: /local/philips_hue/relax_ball_thumb.png
+                show_entity_picture: true
+              - type: custom:button-card
+                template: vertical_buttons_custom
+                name: Concentreren
+                tap_action:
+                  action: call-service
+                  service: select.select_option
+                  service_data:
+                    option: Concentreren
+                    entity_id: select.lamp_michiel_preset
+                entity_picture: /local/philips_hue/sensordefault_concentrate.webp
+                show_entity_picture: true
+              - type: custom:button-card
+                template: vertical_buttons_custom
+                name: Aurora
+                tap_action:
+                  action: call-service
+                  service: select.select_option
+                  service_data:
+                    option: Custom Aurora
+                    entity_id: select.lamp_michiel_playlist
+                entity_picture: /local/philips_hue/arctic_aurora_thumb.png
+                show_entity_picture: true
+
+
+###################################
+#                                 #
+#         POPUP WOONKAMER         #
+#                                 #
+###################################
+
+  - title: Popup Woonkamer
+    path: popup_woonkamer_lampen
+    cards:
+      - type: custom:button-card
+        template: chip_back
+        tap_action: 
+          action: navigate
+          navigation_path: /lovelace-minimalist/lampen
+
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: edge
+              - type: custom:button-card
+                template: big_title
+                name: Woonkamer
+              - type: custom:button-card
+                template: edge
+
+          - type: custom:button-card
+            template: card_spacing
+
+          - type: horizontal-stack
+            cards:
+              - type: custom:my-slider
+                entity: light.woonkamer_2
+                radius: "20px"
+                rotate: 270
+                containerHeight: "320px"
+                width: "250px"
+                height: "100px"
+                top: "100px"
+                left: "17%"
+                mainSliderColor: white
+                mainSliderColorOff: white
+                secondarySliderColor: "var(--color-theme)"
+                secondarySliderColorOff: "var(--color-theme)"
+                thumbWidth: '40px'
+                thumbHeight: '250px'
+                thumbColor: white
+                thumbHorizontalPadding: '4px'
+                thumbVerticalPadding: '0px'
+                thumbTop: '0px'
+                thumbBorderRight: '0px'
+                thumbBorderLeft: '0px'
+                thumbBorderTop: '0px'
+                thumbBorderBotton: '0px'
+                card_mod:
+                  style: |
+                    ha-card {
+                      background: none !important;
+                      box-shadow: none !important;
+                    }
+                    .slider-container input[type="range"] {
+                      position: revert !important;
+                      border: 1px solid rgba(var(--color-theme),0.3) !important;
+                    }
+                    .slider-container {
+                      display: flex;
+                      justify-content: center;
+                      align-items: center;
+                    }
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: edge
+              - type: custom:button-card
+                template: sub_title
+                label: scenes
+              - type: custom:button-card
+                template: edge
+
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: vertical_buttons_custom
+                name: Ontspannen
+                tap_action:
+                  action: call-service
+                  service: scene.turn_on
+                  service_data:
+                    entity_id: scene.huis_ontspannen
+                entity_picture: /local/philips_hue/relax_ball_thumb.png
+                show_entity_picture: true
+              - type: custom:button-card
+                template: vertical_buttons_custom
+                name: Concentreren
+                tap_action:
+                  action: call-service
+                  service: scene.turn_on
+                  service_data:
+                    entity_id: scene.huis_concentreren
+                entity_picture: /local/philips_hue/sensordefault_concentrate.webp
+                show_entity_picture: true
+              - type: custom:button-card
+                template: vertical_buttons_custom
+                name: Aurora
+                tap_action:
+                  action: call-service
+                  service: scene.turn_on
+                  service_data:
+                    entity_id: scene.huis_arctische_dageraad
+                entity_picture: /local/philips_hue/arctic_aurora_thumb.png
+                show_entity_picture: true
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+            
+
+
+
+
+
+      
