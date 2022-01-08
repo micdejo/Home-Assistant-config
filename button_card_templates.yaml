@@ -1,0 +1,439 @@
+#####################################
+#                                   #
+#         CUSTOM TEMPLATES          #
+#                                   #
+#####################################
+
+
+### CUSTOM SCENE ###
+
+vertical_buttons_custom:
+  styles: 
+    icon:
+      - color: 'rgba(var(--color-theme),0.2)'
+      - height: 42px
+      - width: 42px
+      - border-radius: 50%
+    label:
+      - justify-self: center
+      - align-self: start
+      - font-weight: bolder
+      - font-size: 12px
+      - filter: opacity(40%)
+    name:
+      - margin-top: 10px
+      - justify-self: center
+      - font-weight: bold
+      - font-size: 14px
+    img_cell:
+      - background-color: 'rgba(var(--color-theme),0.05)'
+      - border-radius: 50%
+      - place-self: center
+      - width: 42px
+      - height: 42px
+    grid:
+      - grid-template-areas: '"i" "n" "l"'
+    card:
+      - border-radius: var(--border-radius)
+      - box-shadow: var(--box-shadow)
+      - padding: 10px 0px 8px 0px
+  size: 20px
+
+
+### SPACING CARD ###
+
+card_spacing:
+  tap_action:
+    action: none
+  show_icon: false
+  show_label: true
+  show_name: true
+  styles:
+    card:
+      - background-color: rgba(0,0,0,0)
+      - box-shadow: none
+      - height: 30px
+      - width: auto
+      - margin-top: 12px
+      - margin-left: 24px
+      - margin-bottom: 0px
+    grid:
+      - grid-template-areas: '"n" "l"'
+      - grid-template-columns: 1fr
+      - grid-template-rows: min-content min-content
+    name:
+      - justify-self: start
+      - font-weight: bold
+      - font-size: '3rem'
+    label:
+      - justify-self: start
+      - font-weight: bold
+      - font-size: '1rem'
+      - opacity: '0.4'
+
+header_spacing:
+  tap_action:
+    action: none
+  show_icon: false
+  show_label: true
+  show_name: true
+  styles:
+    card:
+      - background-color: rgba(0,0,0,0)
+      - box-shadow: none
+      - height: 55px
+      - width: auto
+      - margin-top: 12px
+      - margin-left: 24px
+      - margin-bottom: 0px
+    grid:
+      - grid-template-areas: '"n" "l"'
+      - grid-template-columns: 1fr
+      - grid-template-rows: min-content min-content
+    name:
+      - justify-self: start
+      - font-weight: bold
+      - font-size: '3rem'
+    label:
+      - justify-self: start
+      - font-weight: bold
+      - font-size: '1rem'
+      - opacity: '0.4'
+
+
+sub_title:
+  tap_action:
+    action: none
+  show_icon: false
+  show_label: true
+  show_name: true
+  styles:
+    card:
+      - background-color: rgba(0,0,0,0)
+      - box-shadow: none
+      - height: auto
+      - width: auto
+      - margin-top: 12px
+      - margin-left: 24px
+      - margin-bottom: 0px
+    grid:
+      - grid-template-areas: '"n" "l"'
+      - grid-template-columns: 1fr
+      - grid-template-rows: min-content min-content
+    name:
+      - justify-self: start
+      - font-weight: bold
+      - font-size: '1.3rem'
+    label:
+      - justify-self: start
+      - font-weight: bold
+      - font-size: '1rem'
+      - opacity: '0.4'
+
+big_title:
+  tap_action:
+    action: none
+  show_icon: false
+  show_label: true
+  show_name: true
+  styles:
+    card:
+      - background-color: rgba(0,0,0,0)
+      - box-shadow: none
+      - height: auto
+      - width: auto
+      - margin-top: 12px
+      - margin-left: 24px
+      - margin-bottom: 0px
+    grid:
+      - grid-template-areas: '"n" "l"'
+      - grid-template-columns: 1fr
+      - grid-template-rows: min-content min-content
+    name:
+      - justify-self: start
+      - font-weight: bold
+      - font-size: '3.5rem'
+      - text-align: left
+    label:
+      - justify-self: start
+      - font-weight: bold
+      - font-size: '1.5rem'
+      - opacity: '0.4'
+      - text-align: left
+
+
+### MEDIA FOUR BUTTONS ###     
+list_four_items:
+  styles:
+    card:
+      - box-shadow: none
+      - padding: 0px
+      - background-color: "rgba(var(--color-theme),0)"
+    grid:
+      - grid-template-areas: '"item1 item2 item3 item4"'
+      - grid-template-columns: 1fr 1fr 1fr 1fr
+      - grid-template-rows: min-content
+      - column-gap: 7px
+
+
+card_media_player_with_four_controls:
+  variables:
+    ulm_card_media_player_with_four_controls_name: "No name set"
+    ulm_card_madia_player_with_four_controls_service: ""
+    ulm_card_madia_player_with_four_controls_source: ""
+    ulm_card_madia_player_with_four_controls_icon4: ""
+
+  triggers_update: "all"
+  styles:
+    grid:
+      - grid-template-areas: "'item1' 'item2' 'item3'"
+      - grid-template-columns: "1fr"
+      - grid-template-rows: "min-content  min-content  min-content"
+      - row-gap: "12px"
+    card:
+      - border-radius: "var(--border-radius)"
+      - box-shadow: "var(--box-shadow)"
+      - padding: "12px"
+  custom_fields:
+    item1:
+      card:
+        type: "custom:button-card"
+        template:
+          - "ulm_language_variables"
+          - "card_media_player"
+        tap_action:
+          action: "more-info"
+        entity: "[[[ return variables.ulm_card_media_player_with_four_controls_entity ]]]"
+        name: "[[[ return variables.ulm_card_media_player_with_four_controls_name ]]]"
+        styles:
+          card:
+            - box-shadow: "none"
+            - padding: "0px"
+    item2:
+      card:
+        type: "custom:button-card"
+        template: "list_four_items"
+        custom_fields:
+          item1:
+            card:
+              type: "custom:button-card"
+              template: "widget_icon"
+              tap_action:
+                action: "call-service"
+                service: "media_player.media_previous_track"
+                service_data:
+                  entity_id: "[[[ return variables.ulm_card_media_player_with_four_controls_entity ]]]"
+              icon: "mdi:skip-previous"
+          item2:
+            card:
+              type: "custom:button-card"
+              template: "widget_icon"
+              entity: "[[[ return variables.ulm_card_media_player_with_four_controls_entity ]]]"
+              tap_action:
+                action: "call-service"
+                service: "media_player.media_play_pause"
+                service_data:
+                  entity_id: "[[[ return variables.ulm_card_media_player_with_four_controls_entity ]]]"
+              icon: "mdi:pause"
+              state:
+                - value: "paused"
+                  icon: "mdi:play"
+                - value: "off"
+                  icon: "mdi:play"
+          item3:
+            card:
+              type: "custom:button-card"
+              template: "widget_icon"
+              tap_action:
+                action: "call-service"
+                service: "media_player.media_next_track"
+                service_data:
+                  entity_id: "[[[ return variables.ulm_card_media_player_with_four_controls_entity ]]]"
+              icon: "mdi:skip-next"
+          item4:
+            card:
+              type: "custom:button-card"
+              template: "widget_icon"
+              tap_action:
+                action: "call-service"
+                service: "[[[ return variables.ulm_card_media_player_with_four_controls_service ]]]"
+                service_data:
+                  entity_id: "[[[ return variables.ulm_card_media_player_with_four_controls_entity ]]]"
+                  source: "[[[ return variables.ulm_card_media_player_with_four_controls_source ]]]"
+              icon: "[[[ return variables.ulm_card_media_player_with_four_controls_icon ]]]"
+    item3:
+      card:
+        type: "custom:slider-entity-row"
+        entity: "[[[ return variables.ulm_card_media_player_with_four_controls_entity ]]]"
+        toggle: true
+        full_row: true
+        hide_when_off: true
+
+### WIDGET ICON NAVIGATE MENU ###
+
+widget_icon_menu:
+  tap_action:
+    action: "toggle"
+  show_icon: true
+  show_name: false
+  styles:
+    grid:
+      - grid-template-areas: "'i'"
+    card:
+      - box-shadow: "none"
+      - padding: "0px"
+      - background-color: "rgba(var(--color-theme),0.05)"
+      - border-radius: "14px"
+      - place-self: "center"
+      - height: "42px"
+    icon:
+      - color: "rgba(var(--color-theme),0.9)"
+  size: "20px"
+  color: "var(--google-grey)"
+
+
+### FULL IMAGE WIDGET ###
+
+widget_full_image:
+  tap_action:
+    action: "toggle"
+  show_icon: false
+  show_name: false
+  variables:
+    widget_full_image_entity_picture: ""
+  styles:
+    grid:
+      - grid-template-areas: "'i'"
+    card:
+      - box-shadow: "none"
+      - padding: "0px"
+      - background-color: "rgba(var(--color-theme),0.05)"
+      - border-radius: "14px"
+      - place-self: "center"
+      - height: "42px"
+      - background: "[[[ return variables.widget_full_image_entity_picture != null ? 'center / cover url(' + variables.widget_full_image_entity_picture\
+          \ + ') rgba(0, 0, 0, 0.15)' : '' ]]]"
+    icon:
+      - color: "rgba(var(--color-theme),0.9)"
+      - height: 42px
+      - width: 42px
+  size: "20px"
+  color: "var(--google-grey)"
+
+### CARD SLIDER COLLAPSE WITH BUTTON ###
+
+card_light_slider_collapse_with_button:
+  template:
+    - "ulm_language_variables"
+  variables:
+    ulm_card_light_slider_collapse_name: "[[[ return entity.attributes.friendly_name ]]]"
+    ulm_card_light_slider_collapse_navigation_path: ""
+  show_icon: false
+  show_name: false
+  show_label: false
+  state:
+    - operator: "template"
+      value: "[[[ return entity.state == 'on' ]]]"
+      styles:
+        card:
+          - background-color: "rgba(var(--color-background-yellow),var(--opacity-bg))"
+        grid:
+          - row-gap: "12px"
+  styles:
+    grid:
+      - grid-template-areas: "'item1 item1' 'item2 item3'"
+      - grid-template-columns: "2fr 1fr"
+      - grid-template-rows: "min-content min-content"
+      - column-gap: "12px"
+    card:
+      - border-radius: "var(--border-radius)"
+      - box-shadow: "var(--box-shadow)"
+      - padding: "12px"
+  custom_fields:
+    item1:
+      card:
+        type: "custom:button-card"
+        template:
+          - "icon_info"
+          - "yellow_slider"
+        entity: "[[[ return entity.entity_id ]]]"
+        label: >-
+          [[[
+            if (entity.state !="unavailable"){
+              if (entity.state =="off"){
+                return variables.ulm_off;
+              } else if (entity.state == "on"){
+                if (entity.attributes.brightness != null){
+                  var bri = Math.round(entity.attributes.brightness / 2.55);
+                  return (bri ? bri : "0") + "%";
+                } else {
+                  return variables.ulm_on
+                }
+              }
+            } else {
+              return variables.ulm_unavailable;
+            }
+          ]]]
+        name: "[[[ return variables.ulm_card_light_slider_collapse_with_button_name ]]]"
+        styles:
+          card:
+            - box-shadow: "none"
+            - border-radius: "var(--border-radius) var(--border-radius) var(--border-radius) var(--border-radius)"
+            - padding: "0px"
+    item2:
+      card:
+        type: "conditional"
+        conditions:
+          - entity: "[[[ return entity.entity_id ]]]"
+            state: "on"
+        card:
+          type: custom:my-slider
+          entity: "[[[ return entity.entity_id ]]]"
+          radius: 14px
+          height: 42px
+          mainSliderColor: >-
+            [[[
+              if (entity.state == "unavailable"){
+                return "rgba(var(--color-grey),1)";
+              }
+              return "rgba(var(--color-yellow),1)";
+            ]]]
+          secondarySliderColor: >-
+            [[[
+              if (entity.state == "unavailable"){
+                return "rgba(var(--color-grey),0.2)";
+              }
+              return "rgba(var(--color-yellow),0.2)";
+            ]]]
+          mainSliderColorOff: "rgba(var(--color-theme),0.05)"
+          secondarySliderColorOff: "rgba(var(--color-theme),0.05)"
+          thumbColorOff: "rgba(var(--color-theme),0.05)"
+          thumbColor: >-
+            [[[
+              if (entity.state == "unavailable"){
+                return "rgba(var(--color-grey),1)";
+              }
+              return "rgba(var(--color-yellow),1)";
+            ]]]
+          card_mod:
+          style: |
+            ha-card {
+              border-radius: 14px;
+              box-shadow: none;
+            }
+
+    item3:
+      card:
+        type: "conditional"
+        conditions:
+          - entity: "[[[ return entity.entity_id ]]]"
+            state: "on"
+        card:
+          icon: "mdi:palette"
+          tap_action:
+            action: navigate
+            navigation_path: "[[[ return variables.ulm_card_light_slider_collapse_navigation_path ]]]"
+          type: "custom:button-card"
+          entity: "[[[ return variables.entity ]]]"
+          template: 
+            - widget_icon
