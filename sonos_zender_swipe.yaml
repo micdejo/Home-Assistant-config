@@ -1,0 +1,82 @@
+- type: custom:button-card
+  template: edge
+  
+- type: custom:swipe-card 
+  parameters:
+    slidesPerView: 3
+    spaceBetween: 8
+  cards:      
+    - type: custom:button-card
+      name: NPO 1
+      entity_picture: /local/radio_zenders/npo1new.png
+      show_entity_picture: true
+      template: vertical_buttons_custom
+      tap_action:
+        action: call-service
+        service: media_player.select_source
+        service_data:
+          source: NPO Radio 1
+          entity_id: media_player.woonkamer
+
+    - type: custom:button-card
+      name: NPO 2
+      entity_picture: /local/radio_zenders/npo2new.png
+      show_entity_picture: true
+      template: vertical_buttons_custom
+      tap_action:
+        action: call-service
+        service: media_player.select_source
+        service_data:
+          source: NPO Radio 2
+          entity_id: media_player.woonkamer
+
+    - type: custom:button-card
+      name: Radio 3FM
+      entity_picture: /local/radio_zenders/npo3new.png
+      show_entity_picture: true
+      template: vertical_buttons_custom
+      tap_action:
+        action: call-service
+        service: media_player.select_source
+        service_data:
+          source: NPO 3FM
+          entity_id: media_player.woonkamer
+
+    - type: custom:button-card
+      name: Qmusic
+      entity_picture: /local/qmusic.png
+      show_entity_picture: true
+      template: vertical_buttons_custom
+      tap_action:
+        action: call-service
+        service: media_player.select_source
+        service_data:
+          source: Qmusic
+          entity_id: media_player.woonkamer
+
+    - type: custom:button-card
+      name: Omrop Fryslan
+      entity_picture: /local/radio_zenders/omrop_fryslan.svg
+      show_entity_picture: true
+      template: vertical_buttons_custom
+      tap_action:
+        action: call-service
+        service: media_player.select_source
+        service_data:
+          source: Omrop Fryslan
+          entity_id: media_player.woonkamer
+
+    - type: custom:button-card
+      name: '538'
+      entity_picture: /local/radio_zenders/538new.png
+      show_entity_picture: true
+      template: vertical_buttons_custom
+      tap_action:
+        action: call-service
+        service: media_player.select_source
+        service_data:
+          source: '538'
+          entity_id: media_player.woonkamer
+
+- type: custom:button-card
+  template: edge
