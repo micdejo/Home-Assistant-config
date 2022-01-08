@@ -163,21 +163,20 @@ views:
                   - type: custom:button-card
                     template: edge
                   - type: custom:button-card
-                    template:
-                      - card_light_slider_collapse_with_button
                     entity: light.lamp_michiel
+                    template: card_light_slider_collapse_with_button
                     variables:
-                      ulm_card_light_name: Michiel
-                      ulm_card_light_icon: hue:bulb-sultan
+                      ulm_card_light_slider_collapse_name: Lamp
+                      ulm_card_light_slider_collapse_icon: hue:bulb-sultan
                       ulm_card_light_slider_collapse_navigation_path: "/lovelace-minimalist/popup_kamer_michiel_lamp"
-                    hold_action:
-                      !include popup/light-michiel.yaml
 
                   - type: custom:button-card
-                    template: card_light
-                    entity: switch.bedroom_light
+                    template: card_light_slider_collapse_with_button
+                    entity: light.kamer_michiel_nachtlamp
                     variables:
-                      ulm_card_light_name: Nachtlamp Michiel
+                      ulm_card_light_slider_collapse_name: Nachtlamp
+                      ulm_card_light_slider_collapse_icon: hue:bulb-spot
+                      ulm_card_light_slider_collapse_navigation_path: ""
                   - type: custom:button-card
                     template: edge
 
@@ -205,11 +204,9 @@ views:
                     entity: light.woonkamer
                     template: card_light_slider_collapse_with_button
                     variables:
-                      ulm_card_light_name: Woonkamer
-                      ulm_card_light_icon: hue:bulb-group-spot
+                      ulm_card_light_slider_collapse_name: Woonkamer
+                      ulm_card_light_slider_collapse_icon: hue:bulb-group-spot
                       ulm_card_light_slider_collapse_navigation_path: "/lovelace-minimalist/popup_woonkamer_lampen"
-                    hold_action:
-                      !include popup/light-woonkamer.yaml
                   - type: custom:button-card
                     template: edge
 
@@ -242,8 +239,8 @@ views:
                       - card_light_slider_collapse_with_button
                     entity: light.garage_boven
                     variables:
-                      ulm_card_light_name: Garage Boven
-                      ulm_card_light_icon: hue:bulb-spot
+                      ulm_card_light_slider_collapse_name: Spots
+                      ulm_card_light_slider_collapse_icon: hue:bulb-group-spot
                       ulm_card_light_slider_collapse_navigation_path: "/lovelace-minimalist/popup_garage_boven_spots"
                     name: Garage
 
@@ -251,10 +248,9 @@ views:
                     template: card_light_slider_collapse_with_button
                     entity: light.garage_boven_michel
                     variables:
-                      ulm_card_light_slider_collapse_with_button_name: Bureau Michel
-                      ulm_card_light_icon: hue:bulb-spot
+                      ulm_card_light_slider_collapse_name: Bureau Michel
+                      ulm_card_light_slider_collapse_icon: hue:bulb-spot
                       ulm_card_light_slider_collapse_navigation_path: "/lovelace-minimalist/popup_garage_boven_michel"
-                    name: Bureau Michel
                   - type: custom:button-card
                     template: edge
 
