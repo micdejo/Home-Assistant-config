@@ -327,6 +327,7 @@ card_light_slider_collapse_with_button:
     - "ulm_language_variables"
   variables:
     ulm_card_light_slider_collapse_name: "[[[ return entity.attributes.friendly_name ]]]"
+    ulm_card_light_slider_collapse_icon: ""
     ulm_card_light_slider_collapse_navigation_path: ""
   show_icon: false
   show_name: false
@@ -357,6 +358,7 @@ card_light_slider_collapse_with_button:
           - "icon_info"
           - "yellow_slider"
         entity: "[[[ return entity.entity_id ]]]"
+        icon: "[[[ return variables.ulm_card_light_slider_collapse_icon ]]]"
         label: >-
           [[[
             if (entity.state !="unavailable"){
@@ -374,7 +376,7 @@ card_light_slider_collapse_with_button:
               return variables.ulm_unavailable;
             }
           ]]]
-        name: "[[[ return variables.ulm_card_light_slider_collapse_with_button_name ]]]"
+        name: "[[[ return variables.ulm_card_light_slider_collapse_name ]]]"
         styles:
           card:
             - box-shadow: "none"
